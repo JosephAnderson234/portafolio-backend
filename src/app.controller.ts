@@ -1,9 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AppService } from './app.service';
-import {
-	Project as ProjectModel,
-	Skill as SkillModel,
-} from './generated/prisma/client';
+import { Project as ProjectModel, Skill as SkillModel } from '@prisma/client';
 import { ProjectService } from './project.service';
 import { SkillService } from './skill.service';
 @Controller()
@@ -20,7 +17,9 @@ export class AppController {
 	}
 
 	@Get('projects/:id')
-	async getProjectById(@Param('id') id: string): Promise<ProjectModel> {
+	async getProjectById(
+		@Param('id') id: string,
+	): Promise<ProjectModel | null> {
 		return this.projectService.project({ id: Number(id) });
 	}
 

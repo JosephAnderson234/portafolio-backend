@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
-import { Project, Prisma } from './generated/prisma/client';
+import { Project, Prisma } from '@prisma/client';
 
 @Injectable()
 export class ProjectService {
@@ -14,7 +13,6 @@ export class ProjectService {
 		});
 	}
 
-	// eslint-disable-next-line @typescript-eslint/require-await
 	async projects(params: {
 		skip?: number;
 		take?: number;
@@ -23,7 +21,6 @@ export class ProjectService {
 		orderBy?: Prisma.ProjectOrderByWithRelationInput;
 	}): Promise<Project[]> {
 		const { skip, take, cursor, where, orderBy } = params;
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 		return this.prisma.project.findMany({
 			skip,
 			take,
