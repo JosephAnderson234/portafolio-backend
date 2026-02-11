@@ -3,17 +3,20 @@ import { AppService } from './app.service';
 import {
 	Project as ProjectModel,
 	ProjectSkills,
-	Skill as SkillModel
+	Skill as SkillModel,
+	Framework as FrameworkModel
 } from '@prisma/client';
 import { ProjectService } from './project.service';
 import { SkillService } from './skill.service';
+import { FrameworkService } from './framework.service';
 import { type CreateProjectDto } from './dto/CreateProjectDto';
 @Controller()
 export class AppController {
 	constructor(
 		private readonly appService: AppService,
 		private readonly projectService: ProjectService,
-		private readonly skillService: SkillService
+		private readonly skillService: SkillService,
+		private readonly frameworkService: FrameworkService
 	) {}
 
 	@Get()
@@ -45,5 +48,13 @@ export class AppController {
 	): Promise<SkillModel> {
 		const { name } = skillData;
 		return this.skillService.createSkillWithName(name);
+	}
+
+	@Post('frameworks')
+	async createFramework(
+		@Body() frameworkData: { name: string }
+	): Promise<FrameworkModel> {
+		const { name } = frameworkData;
+		return this.frameworkService.createFrameworkWithName(name);
 	}
 }
