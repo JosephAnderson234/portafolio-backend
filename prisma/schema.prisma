@@ -19,6 +19,7 @@ model Project {
   description String
   result      String?
   skills      ProjectSkills[]
+  frameworks  ProjectFramework[]
   createdAt   DateTime        @default(now())
   updatedAt   DateTime        @updatedAt
 }
@@ -39,6 +40,25 @@ model Skill {
   id        Int             @id @default(autoincrement())
   name      String          @unique
   projects  ProjectSkills[]
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+}
+
+
+model ProjectFramework {
+  id          Int             @id @default(autoincrement())
+  project Project @relation(fields: [projectId], references: [id])
+  projectId Int
+  framework Framework @relation(fields: [frameworkId], references: [id])
+  frameworkId Int
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+}
+
+model Framework {
+  id        Int             @id @default(autoincrement())
+  name      String          @unique
+  projects  ProjectFramework[]
   createdAt DateTime        @default(now())
   updatedAt DateTime        @updatedAt
 }
