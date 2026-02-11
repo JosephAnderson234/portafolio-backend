@@ -6,10 +6,10 @@ import { Skill, Prisma } from '@prisma/client';
 export class SkillService {
 	constructor(private prisma: PrismaService) {}
 	async skill(
-		skillWhereUniqueInput: Prisma.SkillWhereUniqueInput,
+		skillWhereUniqueInput: Prisma.SkillWhereUniqueInput
 	): Promise<Skill | null> {
 		return this.prisma.skill.findUnique({
-			where: skillWhereUniqueInput,
+			where: skillWhereUniqueInput
 		});
 	}
 
@@ -26,18 +26,18 @@ export class SkillService {
 			take,
 			cursor,
 			where,
-			orderBy,
+			orderBy
 		});
 	}
 	async createSkill(data: Prisma.SkillCreateInput): Promise<Skill> {
 		return this.prisma.skill.create({
-			data,
+			data
 		});
 	}
 
 	async createSkillWithName(name: string): Promise<Skill> {
 		return this.prisma.skill.create({
-			data: { name },
+			data: { name }
 		});
 	}
 
@@ -48,13 +48,13 @@ export class SkillService {
 		const { where, data } = params;
 		return this.prisma.skill.update({
 			data,
-			where,
+			where
 		});
 	}
 
 	async deleteSkill(where: Prisma.SkillWhereUniqueInput): Promise<Skill> {
 		return this.prisma.skill.delete({
-			where,
+			where
 		});
 	}
 }
