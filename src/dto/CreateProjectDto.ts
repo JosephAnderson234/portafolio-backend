@@ -3,4 +3,5 @@ export interface CreateProjectDto {
 	description: string;
 	result?: string;
 	skill_id: number;
+	framework_id: number;
 }

@@ -7,6 +7,7 @@ import { PrismaService } from './prisma.service';
 import { SkillService } from './skill.service';
 import { ProjectSkillService } from './projectskill.service';
 import { FrameworkService } from './framework.service';
+import { ProjectFrameworkService } from './projectframework.service';
 
 @Module({
 	imports: [ConfigModule.forRoot()],
@@ -17,7 +18,8 @@ import { FrameworkService } from './framework.service';
 		SkillService,
 		PrismaService,
 		ProjectSkillService,
-		FrameworkService
+		FrameworkService,
+		ProjectFrameworkService
 	]
 })
 export class AppModule {}
