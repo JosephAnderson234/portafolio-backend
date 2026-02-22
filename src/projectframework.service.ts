@@ -24,4 +24,30 @@ export class ProjectFrameworkService {
 			}
 		});
 	}
+
+	async addFrameworksToProjectById(
+		id_project: number,
+		id_frameworks: number[]
+	): Promise<void> {
+		const project = await this.prisma.project.findUnique({
+			where: { id: id_project }
+		});
+		if (!project) {
+			throw new NotFoundException('Project not found');
+		}
+		const frameworks = await this.prisma.framework.findMany({
+			where: { id: { in: id_frameworks } }
+		});
+		if (frameworks.length !== id_frameworks.length) {
+			throw new NotFoundException('One or more frameworks not found');
+		}
+		const projectFrameworksData = frameworks.map((framework) => ({
+			projectId: id_project,
+			frameworkId: framework.id
+		}));
+		await this.prisma.projectFramework.createMany({
+			data: projectFrameworksData,
+			skipDuplicates: true
+		});
+	}
 }

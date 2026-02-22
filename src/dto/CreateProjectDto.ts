@@ -2,6 +2,6 @@ export interface CreateProjectDto {
 	name: string;
 	description: string;
 	result?: string;
-	skill_id: number;
-	framework_id: number;
+	skills_id: number[];
+	frameworks_id: number[];
 }

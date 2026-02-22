@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
 import { Project, Prisma } from '@prisma/client';
 import { CreateProjectDto } from './dto/CreateProjectDto';
-import { SkillService } from './skill.service';
 import { ProjectSkillService } from './projectskill.service';
 import { ProjectFrameworkService } from './projectframework.service';
 
@@ -10,7 +9,6 @@ import { ProjectFrameworkService } from './projectframework.service';
 export class ProjectService {
 	constructor(
 		private prisma: PrismaService,
-		private skill: SkillService,
 		private projectSkill: ProjectSkillService,
 		private projectFramework: ProjectFrameworkService
 	) {}
@@ -45,12 +43,12 @@ export class ProjectService {
 	}
 
 	async createProjectMethod(data: CreateProjectDto): Promise<Project> {
-		const { name, description, result, skill_id, framework_id } = data;
+		const { name, description, result, skills_id, frameworks_id } = data;
 		const created = await this.createProject({ description, name, result });
-		await this.projectSkill.addSkillToProjectById(created.id, skill_id);
-		await this.projectFramework.addFrameworkToProjectById(
+		await this.projectSkill.addSkillsToProjectById(created.id, skills_id);
+		await this.projectFramework.addFrameworksToProjectById(
 			created.id,
-			framework_id
+			frameworks_id
 		);
 		return created;
 	}

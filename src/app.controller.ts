@@ -2,7 +2,6 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 import {
 	Project as ProjectModel,
-	ProjectSkills,
 	Skill as SkillModel,
 	Framework as FrameworkModel
 } from '@prisma/client';
@@ -38,7 +37,7 @@ export class AppController {
 	@Post('projects')
 	async createProject(
 		@Body() projectData: CreateProjectDto
-	): Promise<ProjectSkills> {
+	): Promise<ProjectModel> {
 		return await this.projectService.createProjectMethod(projectData);
 	}
 
